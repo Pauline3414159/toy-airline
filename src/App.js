@@ -15,7 +15,13 @@ const App = () => {
   const [rangeStart, setRangeStart] = useState(1)
   const [increment, setIncrement] = useState(25)
 
+  const nextPage = () => {
+    setRangeStart(rangeStart + increment)
+  }
 
+  const prevPage = () => {
+    setRangeStart(rangeStart - increment)
+  }
 
   return(
   <div className="app">
@@ -27,7 +33,7 @@ const App = () => {
       Welcome to the app!
     </p>
     <Table className="routes-table" columns={columns} rows={rangeStart} format="" perPage={increment}/>
-    <Pagination total={routes.length} range={rangeStart} />
+    <Pagination total={routes.length} range={rangeStart} next={nextPage} prev={prevPage} />
   </section>
 </div>
 )}
