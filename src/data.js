@@ -871,6 +871,10 @@ const airlines = [
   {"id":4951,"name":"Turkish Airlines"},
 ];
 
+const getAirlineById = (id) => {
+  return airlines.find((a) => a.id === id).name
+}
+
 const airports = [
   {"code":"YEG","name":"Edmonton International Airport","lat":53.309700012200004,"long":-113.580001831},
   {"code":"YHZ","name":"Halifax / Stanfield International Airport","lat":44.8807983398,"long":-63.5085983276},
@@ -1395,4 +1399,8 @@ const airports = [
 
 ];
 
-export default {routes, airlines, airports};
+const getAirportByCode = (code) => {
+  return airports.find((a) => a.code === code.toUpperCase()).name
+}
+
+export  {routes, airlines, airports, getAirlineById, getAirportByCode};
