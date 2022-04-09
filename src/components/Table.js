@@ -1,4 +1,4 @@
-import { routes, getAirlineById, getAirportByCode } from "../data"
+import {  getAirlineById, getAirportByCode } from "../data"
 import React from "react"
 import { useSelector } from "react-redux"
 

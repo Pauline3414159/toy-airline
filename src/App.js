@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { routes } from './data.js'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import Table from './components/Table';
 import Pagination from './components/PaginationNav';
 import Select from './components/Selection';
