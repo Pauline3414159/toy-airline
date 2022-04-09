@@ -2,17 +2,16 @@ import { routes, getAirlineById, getAirportByCode } from "../data"
 import React from "react"
 import { useSelector } from "react-redux"
 
-const Table = ({format, columns}) => {
+const Table = ({format, columns, avalibleRoutes}) => {
   const perPage = useSelector((state) => state.page.increment)
   const rows = useSelector((state) => state.page.rangeStart)
-  const airlineFilter = useSelector((state) => state.filter.airline)
 
-  const routesByAirline = () => {
-    if (!airlineFilter) {
-      return routes
-    }
-    return routes.filter((r) => r.airline === Number(airlineFilter))
+  if (!avalibleRoutes.length) {
+    return (
+      <p>No Matching Routes</p>
+    )
   }
+  
   return(
     <table>
       <thead>
@@ -25,7 +24,7 @@ const Table = ({format, columns}) => {
         </tr>
       </thead>
       <tbody>
-          {routesByAirline().slice(rows - 1, rows + perPage - 1).map((r, i) => {
+          {avalibleRoutes.slice(rows - 1, rows + perPage - 1).map((r, i) => {
             return (
             <tr key={i}>
             <td>{getAirlineById(r.airline)}</td>

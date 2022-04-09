@@ -14,12 +14,26 @@ const App = () => {
   ];
 
   const airlineFilter = useSelector((state) => state.filter.airline)
+  const airportFilter = useSelector((state) => state.filter.airport)
 
-  const routesByAirline = () => {
-    if (!airlineFilter) {
-      return routes
+  const filteredRoutes = () => {
+    switch (true) {
+      case (airlineFilter && airportFilter):
+        return routes.filter((r) => {
+          const atAirport = r.src === airportFilter || r.dest === airportFilter;
+          return r.airline === Number(airlineFilter) && atAirport
+        })
+      case (airlineFilter && !airportFilter):
+        return routes.filter((r) => r.airline === Number(airlineFilter));
+      case (airportFilter && !airlineFilter):
+        return routes.filter((r) => {
+          return r.src === airportFilter || r.dest === airportFilter;
+        })
+      case (!airlineFilter && !airportFilter):
+        return routes
+      default:
+        return []
     }
-    return routes.filter((r) => r.airline === Number(airlineFilter))
   }
 
   return(
@@ -29,9 +43,9 @@ const App = () => {
   </header>
   <section>
     <Select/>
-    <Table className="routes-table" columns={columns} avalibleRoutes={routesByAirline()}/>
+    <Table className="routes-table" columns={columns} avalibleRoutes={filteredRoutes()}/>
     <Pagination 
-      total={routesByAirline().length} 
+      total={filteredRoutes().length} 
     />
   </section>
 </div>

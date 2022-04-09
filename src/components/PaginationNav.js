@@ -15,6 +15,12 @@ const Pagination = ({ total }) => {
     return range + perPage > total
   }
 
+  if (!total) {
+    return (
+      <></>
+    )
+  }
+
   return (
     <div className="pagination">
       <p>

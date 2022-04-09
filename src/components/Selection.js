@@ -10,22 +10,22 @@ const OptionLine = ({value, name}) => {
 }
 
 const Select = () => {
-  const distpatch = useDispatch()
+  const dispatch = useDispatch()
   return (
     <p>
       Show routes on 
-        <select onChange={(e) => {distpatch(setAirline(e.target.value))} }>
+        <select onChange={(e) => {dispatch(setAirline(e.target.value))} }>
         <option value="">All Airlines</option>
         {airlines.map((airline) => <OptionLine key={airline.id} value={airline.id} name={airline.name} />)}
       </select>
     flying in or out of <br/>
-        <select>
+        <select onChange={(e) => dispatch(setAirport(e.target.value))}>
           <option value="">All Airports</option>
           {airports.map((airport) => 
             <OptionLine key={airport.code} value={airport.code} name={airport.name} />
           )}
         </select>
-      <button>Show All Routes</button>
+      <button onClick={() => { dispatch(clearFilters())}}>Show All Routes</button>
     </p>
     
   )
