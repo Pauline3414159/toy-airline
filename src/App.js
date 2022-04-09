@@ -4,6 +4,7 @@ import './App.css';
 import { routes, getAirlineById, getAirportByCode } from './data.js'
 import Table from './components/Table';
 import Pagination from './components/PaginationNav';
+import Select from './components/Selection';
 
 const App = () => {
   const columns = [
@@ -37,9 +38,7 @@ const App = () => {
     <h1 className="title">Airline Routes</h1>
   </header>
   <section>
-    <p>
-      Welcome to the app!
-    </p>
+    <Select/>
     <Table className="routes-table" columns={columns} rows={rangeStart} format="" perPage={increment}/>
     <Pagination 
       total={routes.length} 
@@ -48,6 +47,7 @@ const App = () => {
       prev={prevPage} 
       disableNext={disableNext}
       disablePrev={disablePrev}
+      perPage={increment}
     />
   </section>
 </div>
