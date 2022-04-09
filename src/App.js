@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { useState } from 'react';
 import './App.css';
 import { routes, getAirlineById, getAirportByCode } from './data.js'
+import { useSelector, useDispatch } from 'react-redux';
 import Table from './components/Table';
 import Pagination from './components/PaginationNav';
 import Select from './components/Selection';
@@ -13,24 +13,8 @@ const App = () => {
     {name: 'Destination Airport', property: 'dest'},
   ];
 
-  const [rangeStart, setRangeStart] = useState(1)
-  const [increment, setIncrement] = useState(25)
-
-  const nextPage = () => {
-    setRangeStart(rangeStart + increment)
-  }
-
-  const prevPage = () => {
-    setRangeStart(rangeStart - increment)
-  }
-
-  const disablePrev = () => {
-    return rangeStart - increment < 1
-  }
-
-  const disableNext = () => {
-    return rangeStart + increment > routes.length
-  }
+  const rangeStart = useSelector((state) => state.page.rangeStart)
+  const increment = useSelector((state) => state.page.increment)
 
   return(
   <div className="app">
@@ -39,15 +23,9 @@ const App = () => {
   </header>
   <section>
     <Select/>
-    <Table className="routes-table" columns={columns} rows={rangeStart} format="" perPage={increment}/>
+    <Table className="routes-table" columns={columns} />
     <Pagination 
       total={routes.length} 
-      range={rangeStart} 
-      next={nextPage} 
-      prev={prevPage} 
-      disableNext={disableNext}
-      disablePrev={disablePrev}
-      perPage={increment}
     />
   </section>
 </div>
