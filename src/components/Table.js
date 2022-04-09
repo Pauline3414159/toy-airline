@@ -5,7 +5,14 @@ import { useSelector } from "react-redux"
 const Table = ({format, columns}) => {
   const perPage = useSelector((state) => state.page.increment)
   const rows = useSelector((state) => state.page.rangeStart)
+  const airlineFilter = useSelector((state) => state.filter.airline)
 
+  const routesByAirline = () => {
+    if (!airlineFilter) {
+      return routes
+    }
+    return routes.filter((r) => r.airline === Number(airlineFilter))
+  }
   return(
     <table>
       <thead>
@@ -18,7 +25,7 @@ const Table = ({format, columns}) => {
         </tr>
       </thead>
       <tbody>
-          {routes.slice(rows - 1, rows + perPage - 1).map((r, i) => {
+          {routesByAirline().slice(rows - 1, rows + perPage - 1).map((r, i) => {
             return (
             <tr key={i}>
             <td>{getAirlineById(r.airline)}</td>

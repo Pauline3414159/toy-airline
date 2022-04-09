@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { routes, getAirlineById, getAirportByCode } from './data.js'
+import { routes } from './data.js'
 import { useSelector, useDispatch } from 'react-redux';
 import Table from './components/Table';
 import Pagination from './components/PaginationNav';
@@ -13,8 +13,14 @@ const App = () => {
     {name: 'Destination Airport', property: 'dest'},
   ];
 
-  const rangeStart = useSelector((state) => state.page.rangeStart)
-  const increment = useSelector((state) => state.page.increment)
+  const airlineFilter = useSelector((state) => state.filter.airline)
+
+  const routesByAirline = () => {
+    if (!airlineFilter) {
+      return routes
+    }
+    return routes.filter((r) => r.airline === Number(airlineFilter))
+  }
 
   return(
   <div className="app">
@@ -23,9 +29,9 @@ const App = () => {
   </header>
   <section>
     <Select/>
-    <Table className="routes-table" columns={columns} />
+    <Table className="routes-table" columns={columns} avalibleRoutes={routesByAirline()}/>
     <Pagination 
-      total={routes.length} 
+      total={routesByAirline().length} 
     />
   </section>
 </div>
