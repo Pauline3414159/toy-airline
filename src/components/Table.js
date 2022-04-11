@@ -2,7 +2,7 @@ import {  getAirlineById, getAirportByCode } from "../data"
 import React from "react"
 import { useSelector } from "react-redux"
 
-const Table = ({format, columns, avalibleRoutes}) => {
+const Table = ({ columns, avalibleRoutes}) => {
   const perPage = useSelector((state) => state.page.increment)
   const rows = useSelector((state) => state.page.rangeStart)
 
@@ -13,7 +13,7 @@ const Table = ({format, columns, avalibleRoutes}) => {
   }
   
   return(
-    <table>
+    <table className="routes-table">
       <thead>
         <tr>
           {columns.map((c) => {
