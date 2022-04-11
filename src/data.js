@@ -1403,4 +1403,33 @@ const getAirportByCode = (code) => {
   return airports.find((a) => a.code === code.toUpperCase()).name
 }
 
-export  {routes, airlines, airports, getAirlineById, getAirportByCode};
+const airportsByAirline = routes.reduce((aBa, r) => {
+  const source = r.src;
+  const dest = r.dest;
+  if (aBa[r.airline]) {
+    const listOfAirports = aBa[r.airline];
+    if (!listOfAirports.includes(source)) listOfAirports.push(source);
+    if (!listOfAirports.includes(dest)) listOfAirports.push(dest);
+  } else {
+    aBa[r.airline] = [source, dest]
+  }
+
+  return aBa
+}, {})
+
+const airlinesByAirport = 
+  airports.map((a) => a.code)
+  .reduce((aBa, airport) => {
+    const inRoutes = routes.filter((r) => r.src === airport || r.dest === airport);
+    const airlineList = [];
+    inRoutes.forEach((r) => {
+      if (!airlineList.includes(r.airline)) {
+        airlineList.push(r.airline)
+      }
+    })
+  aBa[airport] = airlineList;
+  return aBa
+  }, {});
+
+
+export  {routes, airlines, airports, getAirlineById, getAirportByCode, airportsByAirline, airlinesByAirport};
