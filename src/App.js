@@ -18,21 +18,16 @@ const App = () => {
 
   const filteredRoutes = () => {
     switch (true) {
-      case (airlineFilter && airportFilter):
-        return routes.filter((r) => {
-          const atAirport = r.src === airportFilter || r.dest === airportFilter;
-          return r.airline === Number(airlineFilter) && atAirport
-        })
+      case (!airlineFilter && !airportFilter):
+        return routes
       case (airlineFilter && !airportFilter):
         return routes.filter((r) => r.airline === Number(airlineFilter));
       case (airportFilter && !airlineFilter):
         return routes.filter((r) => {
           return r.src === airportFilter || r.dest === airportFilter;
         })
-      case (!airlineFilter && !airportFilter):
-        return routes
       default:
-        return []
+          return routes.filter((r) => r.airline === Number(airlineFilter) && (r.src === airportFilter || r.dest === airportFilter));
     }
   }
 

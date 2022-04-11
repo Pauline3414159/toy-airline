@@ -7,8 +7,8 @@ export const filterBySlice = createSlice({
     airport: "",
   },
   reducers : {
-    setAirline: (state, action) => {state.airline = action.payload},
-    setAirport: (state, action) => {state.airport = action.payload},
+    setAirline: (state, action) => {state.airline = action.payload.toUpperCase()},
+    setAirport: (state, action) => {state.airport = action.payload.toUpperCase()},
     clearFilters: (state) => {
       state.airline = "";
       state.airport = "";
